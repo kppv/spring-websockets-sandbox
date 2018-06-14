@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocks</title>
+</head>
+<body>
+<script src="js/sockjs.min.js"></script>
+<script src="js/stomp.min.js"></script>
+<script>
+    var user = prompt('enter username');
+    var ws = new SockJS('http://' + user + '@localhost:8080/socket/sockJs/');
+    var stomp = Stomp.over(ws);
+    stomp.connect({}, function () {
+
+        stomp.subscribe('/notifications', function (message) {
+            if (message) {
+                console.log(message);
+                document.getElementById('chat').innerHTML += '<div>' + message.body + '</div>'
+            }
+        });
+
+        stomp.subscribe('/user/notifications', function (message) {
+            if (message) {
+                console.log(message);
+                document.getElementById('chat').innerHTML += '<div>' + message.body + '</div>'
+            }
+        });
+
+
+    });
+</script>
+<div id="chat"></div>
+</body>
+</html>
