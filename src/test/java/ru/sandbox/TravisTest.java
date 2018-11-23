@@ -8,6 +8,6 @@ public class TravisTest {
     @Test
     void travisTest() {
         int x = 1;
-        assertEquals(2, x);
+        assertEquals(1, x);
     }
 }
